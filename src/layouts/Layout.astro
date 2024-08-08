@@ -1,4 +1,6 @@
 ---
+import Navbar from '../components/Navbar.astro';
+
 interface Props {
 	title: string;
 }
@@ -16,7 +18,8 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="w-screen flex flex-col items-center">
+	<body class="w-screen flex flex-col items-center py-12">
+		<Navbar />
 		<slot />
 	</body>
 </html>

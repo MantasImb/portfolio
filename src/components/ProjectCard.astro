@@ -1,0 +1,11 @@
+---
+const { title, description, link, image } = Astro.props;
+---
+<div class="flex justify-center gap-4">
+	<img class="shadow-md rounded-md h-60" src={image}>
+	<div class="flex flex-col justify-between w-60">
+		<h3 class="text-3xl font-semibold text-slate-900">{title}</h3>
+		<p class="text-slate-700">{description}</p>
+		<a href={link} class="text-lg font-semibold text-slate-500">View Project Brief →</a>
+	</div>
+</div>
