@@ -1,0 +1,7 @@
+---
+const { name } = Astro.props;
+---
+<div class="flex items-center gap-1 rounded-md bg-slate-100 px-4 py-2">
+	<img class="h-6" src={`/tech/${name}.svg`}>
+	<p class="text-sm font-semibold text-slate-700">{name}</p>
+</div>
