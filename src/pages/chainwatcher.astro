@@ -31,124 +31,78 @@ import ImageView from "../components/ImageView";
 		<p>
 			The application was built using React and Tailwindcss for the
 			frontend, MongoDB and Express for the backend. Both frontend and
-			backend also used Socket.io for real-time communication, and Ethers
+			backend also use Socket.io for real-time communication, and Ethers
 			for interacting with Ethereum-based blockchains.
 		</p>
 		<h1 class="text-3xl font-semibold text-slate-900 text-center">
-			Low-level overview
+			Technical architecture
 		</h1>
-		<h1 class="text-2xl font-semibold text-slate-900 text-center">
-			Database Schemas
-		</h1>
-		<ImageView
-			src="/img/chainwatcher/schemas_diagram.png"
-			alt="Database Schemas"
-			className="w-full"
-			client:load
-		/>
 		<h1 class="text-2xl font-semibold text-slate-900 text-center">
 			Backend
 		</h1>
 		<p>
 			The backend is written in Express, and uses MongoDB as the database
-			for storing the wallets, balances, notifications and errors. The
+			for storing the wallets, users, notifications and errors. The
 			backend also uses Socket.io for real-time communication between the
 			frontend and the backend.
 		</p>
-			<h2 class="text-xl font-semibold text-slate-900">
-				Server start
-			</h2>
-			<ol
-				class="list-decimal list-inside text-slate-700 marker:text-slate-900"
-			>
-				<li>
-					The server fetches all the wallets, that need to be tracked,
-					from the database.
-				</li>
-				<li>
-					For each wallet, the server all fetches wallet balances from
-					their corresponding blockchain.
-				</li>
-				<li>
-					The server now starts to listen for new blocks on each supported
-					blockchain.
-				</li>
-			</ol>
-			<h2 class="text-xl font-semibold text-slate-800">
-				New block detected
-			</h2>
-			<ol
-				class="list-decimal list-inside text-slate-700 marker:text-slate-900"
-			>
-				<li>
-					The server fetches all the balances of the wallets that were
-					updated in the block.
-				</li>
-				<li>
-					If a balance change is detected, it means that the wallet
-					either received funds, or interacted with the blockchain.
-					(on any interaction with the blockchain, the user has to pay
-					a gas fee, so the balance will always change, even if the
-					user didn't send or receive any amount of the native
-					currency of the blockchain)
-				</li>
-				<li>
-					The server then broadcasts the updated balances to the
-					frontend through active socket connections, and updates the
-					database.
-				</li>
-			</ol>
-			<h1 class="text-2xl font-semibold text-slate-900 text-center">
-				Frontend
-			</h1>
-			<p>
-				The frontend state is mainly managed using the React Context
-				API. There are two contexts, one for the API context, which
-				handles blockchain and backend connections, and one for the app
-				state context, which handles the frontend state that needs to be
-				accessed by multiple components all over the application. The
-				rest of the application components use useState hooks for state
-				storage.
-			</p>
-			<h2 class="text-xl font-semibold text-slate-800">
-				API Context
-			</h2>
-			<p>The API context holds functions and state that are used for:</p>
-			<ul
-				class="list-disc list-inside text-slate-700 marker:text-slate-900"
-			>
-				<li>GET/POST/PUT/DELETE requests to the backend.</li>
-				<li>Handling socket connections.</li>
-				<li>Handling blockchain connections.</li>
-			</ul>
-			<h2 class="text-xl font-semibold text-slate-800">
-				App State Context
-			</h2>
-			<p>
-				The app state context holds the state of the application, and
-				functions that are used for:
-			</p>
-			<ul
-				class="list-disc list-inside text-slate-700 marker:text-slate-900"
-			>
-				<li>Handling toast state.</li>
-				<li>
-					Handling UI state like:
-					<ul
-						class="pl-4 text-slate-700 list-inside"
-						style="list-style-type: circle"
-					>
-						<li>Dark mode.</li>
-						<li>Sidebar and Navbar state.</li>
-						<li>Notifications popup state.</li>
-						<li>Global customizeable color state.</li>
-						<li>
-							Screen size state to be accessed easily by
-							components.
-						</li>
-					</ul>
-				</li>
-			</ul>
+		<h2 class="text-xl font-semibold text-slate-900">External APIs</h2>
+		<p>
+			To track wallets and get all the relevant information, the backend
+			uses external APIs:
 		</p>
+		<ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
+			<li>
+				Various RPC endpoints for each supported blockchain. RPC (Remote
+				Procedure Call) url endpoints allow the backend (and frontend)
+				to interact with the blockchains without having to run a node on
+				the blockchain.
+			</li>
+			<li>
+				Blockchain Scanner providers, such as Etherscan, to enrich the
+				transaction data.
+			</li>
+		</ul>
+		<h1 class="text-2xl font-semibold text-slate-900 text-center">
+			Frontend
+		</h1>
+		<p>
+			The frontend state is mainly managed using the React Context API.
+			There are two contexts, one for the API context, which handles
+			blockchain and backend connections, and one for the app state
+			context, which handles the frontend state that needs to be accessed
+			by multiple components all over the application. The rest of the
+			application components use useState hooks for state storage.
+		</p>
+		<h2 class="text-xl font-semibold text-slate-800">API Context</h2>
+		<p>The API context holds functions and state that are used for:</p>
+		<ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
+			<li>GET/POST/PUT/DELETE requests to the backend.</li>
+			<li>Handling socket connections.</li>
+			<li>Handling blockchain connections.</li>
+		</ul>
+		<h2 class="text-xl font-semibold text-slate-800">App State Context</h2>
+		<p>
+			The app state context holds the state of the application, and
+			functions that are used for:
+		</p>
+		<ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
+			<li>Handling toast state.</li>
+			<li>
+				Handling UI state like:
+				<ul
+					class="pl-4 text-slate-700 list-inside"
+					style="list-style-type: circle"
+				>
+					<li>Dark mode.</li>
+					<li>Sidebar and Navbar state.</li>
+					<li>Notifications popup state.</li>
+					<li>Global customizeable color state.</li>
+					<li>
+						Screen size state to be accessed easily by components.
+					</li>
+				</ul>
+			</li>
+		</ul>
 	</ProjectPageLayout>
 </Layout>
