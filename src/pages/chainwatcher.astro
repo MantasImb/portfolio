@@ -1,108 +1,134 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProjectPageLayout from "../layouts/ProjectPageLayout.astro";
-import ImageView from "../components/ImageView";
 ---
 
 <Layout title="Mantas Imbrasas Portfolio">
-	<ProjectPageLayout
-		title="ChainWatcher"
-		imageLink="/img/chainwatcher/chainwatcher_preview.png"
-		techStack={[
-			"React",
-			"Tailwindcss",
-			"Ethers",
-			"MongoDB",
-			"Express",
-			"Socket.io",
-		]}
-	>
-		<p>
-			A decentralized web application used to track wallets on Ethereum VM
-			based blockchains like Binance Smart Chain, Arbitrum, and Ethereum
-			itself.
-		</p>
-		<p>
-			As the sole planner and developer of the project, I identified the
-			most important features and prioritized them. I then created a
-			minimal working prototype of the application, which was then tested
-			and refined until it was ready for production.
-		</p>
-		<p>
-			The application was built using React and Tailwindcss for the
-			frontend, MongoDB and Express for the backend. Both frontend and
-			backend also use Socket.io for real-time communication, and Ethers
-			for interacting with Ethereum-based blockchains.
-		</p>
-		<h1 class="text-3xl font-semibold text-slate-900 text-center">
-			Technical architecture
-		</h1>
-		<h1 class="text-2xl font-semibold text-slate-900 text-center">
-			Backend
-		</h1>
-		<p>
-			The backend is written in Express, and uses MongoDB as the database
-			for storing the wallets, users, notifications and errors. The
-			backend also uses Socket.io for real-time communication between the
-			frontend and the backend.
-		</p>
-		<h2 class="text-xl font-semibold text-slate-900">External APIs</h2>
-		<p>
-			To track wallets and get all the relevant information, the backend
-			uses external APIs:
-		</p>
-		<ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
-			<li>
-				Various RPC endpoints for each supported blockchain. RPC (Remote
-				Procedure Call) url endpoints allow the backend (and frontend)
-				to interact with the blockchains without having to run a node on
-				the blockchain.
-			</li>
-			<li>
-				Blockchain Scanner providers, such as Etherscan, to enrich the
-				transaction data.
-			</li>
-		</ul>
-		<h1 class="text-2xl font-semibold text-slate-900 text-center">
-			Frontend
-		</h1>
-		<p>
-			The frontend state is mainly managed using the React Context API.
-			There are two contexts, one for the API context, which handles
-			blockchain and backend connections, and one for the app state
-			context, which handles the frontend state that needs to be accessed
-			by multiple components all over the application. The rest of the
-			application components use useState hooks for state storage.
-		</p>
-		<h2 class="text-xl font-semibold text-slate-800">API Context</h2>
-		<p>The API context holds functions and state that are used for:</p>
-		<ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
-			<li>GET/POST/PUT/DELETE requests to the backend.</li>
-			<li>Handling socket connections.</li>
-			<li>Handling blockchain connections.</li>
-		</ul>
-		<h2 class="text-xl font-semibold text-slate-800">App State Context</h2>
-		<p>
-			The app state context holds the state of the application, and
-			functions that are used for:
-		</p>
-		<ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
-			<li>Handling toast state.</li>
-			<li>
-				Handling UI state like:
-				<ul
-					class="pl-4 text-slate-700 list-inside"
-					style="list-style-type: circle"
-				>
-					<li>Dark mode.</li>
-					<li>Sidebar and Navbar state.</li>
-					<li>Notifications popup state.</li>
-					<li>Global customizeable color state.</li>
-					<li>
-						Screen size state to be accessed easily by components.
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</ProjectPageLayout>
+  <ProjectPageLayout
+    title="ChainWatcher"
+    imageLink="/img/chainwatcher/chainwatcher_preview.png"
+    techStack={[
+      "React",
+      "Tailwindcss",
+      "Ethers",
+      "MongoDB",
+      "Express",
+      "Socket.io",
+    ]}
+  >
+    <p class="text-xl font-semibold text-slate-900 text-center">
+      Decentralized, real-time wallet tracker for Ethereum-VM chains
+    </p>
+
+    <h2 class="text-2xl font-semibold text-slate-900 text-center">Overview</h2>
+    <p>
+      ChainWatcher lets you monitor any Ethereum-compatible wallet—Ethereum,
+      Binance Smart Chain, Arbitrum, and more—in one clean dashboard.
+    </p>
+    <p>
+      The user can add the addresses they care about, and get instant browser
+      notifications as soon as on-chain events happen.
+    </p>
+    <p>
+      Dark mode, custom accent colors, responsive layout—everything adapts to
+      your tastes and screen size.
+    </p>
+
+    <h2>My Role</h2>
+    <ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
+      <li>Sole planner, architect, and developer</li>
+      <li>Drafted feature list and prioritized the MVP</li>
+      <li>Built a clickable prototype for user feedback</li>
+      <li>Iterated on performance, reliability, and UX</li>
+      <li>Rolled the app out to production and monitored real traffic</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-slate-900 text-center">
+      Tech Stack
+    </h2>
+    <ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
+      <li>
+        <strong>Frontend:</strong> React, Tailwind CSS, React Context API (API &
+        UI contexts), Socket.io client, Ethers.js
+      </li>
+      <li>
+        <strong>Backend:</strong> Node.js, Express, MongoDB (Mongoose), Socket.io
+        server
+      </li>
+      <li>
+        <strong>Blockchain data:</strong> public RPC endpoints (Infura, Alchemy,
+        BSC RPC), Etherscan-style APIs for metadata and internal transactions
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-slate-900 text-center">
+      How It Works
+    </h2>
+    <ol class="list-decimal list-inside text-slate-700 marker:text-slate-900">
+      <li>User registers and adds wallet addresses.</li>
+      <li>
+        Backend polls or subscribes via WebSocket to each chain’s RPC endpoint,
+        enriching raw TX data via a scanner API.
+      </li>
+      <li>
+        New events are stored in MongoDB (users, wallets, notifications, error
+        logs) and pushed to connected clients via Socket.io.
+      </li>
+      <li>
+        On the frontend, <strong>APIContext</strong> manages REST calls, sockets,
+        and blockchain connections. <strong>AppStateContext</strong>
+        handles UI preferences—dark mode, sidebar toggles, toast messages, custom
+        colors, and screen-size flags. Components use local
+        <code>useState</code> hooks for internal state.
+      </li>
+    </ol>
+
+    <h2 class="text-2xl font-semibold text-slate-900 text-center">
+      Key Features
+    </h2>
+    <ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
+      <li>
+        Real-time transaction alerts (incoming, outgoing, token transfers,
+        contract events)
+      </li>
+      <li>Multi-chain support—track wallets across any Ethereum-VM network</li>
+      <li>Custom filters by value, token type, or contract address</li>
+      <li>Fully themeable UI with dark/light modes and accent-color picker</li>
+      <li>
+        Resilient error handling and auto-reconnect for RPC and socket failures
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-slate-900 text-center">
+      Challenges &amp; Solutions
+    </h2>
+    <ul class="list-disc list-inside text-slate-700 marker:text-slate-900">
+      <li>
+        <strong>Polling vs. subscriptions:</strong> Use WebSocket subscriptions when
+        available; fallback to light polling (every 10 s).
+      </li>
+      <li>
+        <strong>State sprawl:</strong> Split concerns into API and UI contexts to
+        keep components focused.
+      </li>
+      <li>
+        <strong>Event flooding:</strong> Batch DB writes and debounce socket pushes
+        to prevent user spam during high-traffic periods.
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-slate-900 text-center">
+      Outcome &amp; Learnings
+    </h2>
+    <p>
+      ChainWatcher is now a stable, production-ready dApp used by early adopters
+      to monitor dozens of wallets in real time.
+    </p>
+    <p>
+      I deepened my expertise in Ethereum tooling (Ethers.js, RPC/WebSocket
+      patterns), real-time communication (Socket.io), and clean state management
+      with React Context. The modular architecture makes adding new chains
+      straightforward.
+    </p>
+  </ProjectPageLayout>
 </Layout>
